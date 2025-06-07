@@ -1,0 +1,89 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.container {
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin-bottom: 30px;
+    position: relative; /* Essential for demonstrating 'absolute' and 'relative' children */
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    background-color: lightblue;
+    border: 1px solid steelblue;
+    margin: 10px;
+    display: inline-block;
+    text-align: center;
+    line-height: 100px; /* Vertically centers text */
+    font-weight: bold;
+}
+
+/* Positioning Examples */
+.static-example .box {
+    /* Default position, no special styling needed */
+}
+
+.relative-example .box-relative {
+    position: relative;
+    top: 20px;
+    left: 20px;
+    background-color: lightcoral;
+}
+
+.absolute-example .box-absolute {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background-color: lightgreen;
+}
+
+.fixed-example .box-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: lightgoldenrodyellow;
+    z-index: 1000; /* Ensures it stays on top */
+}
+
+.sticky-example .box-sticky {
+    position: sticky;
+    top: 0;
+    background-color: lightsalmon;
+    padding: 10px;
+    margin: 0; /* Remove default margin to stick properly */
+    width: 100%;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Hidden Button */
+#hiddenButton {
+    display: none; /* Starts as hidden */
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#hiddenButton.show {
+    display: block; /* Shown when 'show' class is added */
+}
+
+.explanation {
+    background-color: #f9f9f9;
+    border-left: 5px solid #007bff;
+    padding: 15px;
+    margin-top: 15px;}
+

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial de CSS Display</title>
+    <link rel="stylesheet" href="/aula05/display_style.css">
+</head>
+<body>
+
+    <h1>Aprenda a Propriedade <code>display</code> do CSS</h1>
+    <p>A propriedade **`display`** é uma das mais importantes no CSS, pois ela define como um elemento se comporta em relação ao fluxo do documento, ou seja, como ele é renderizado na página e como ele interage com outros elementos. Vamos explorar os valores mais comuns:</p>
+
+    ---
+
+    <h2>1. <code>display: block;</code></h2>
+    <div class="container display-block">
+        <p>Elementos com **`display: block;`** sempre começam em uma nova linha e ocupam toda a largura disponível por padrão. Eles podem ter largura (`width`), altura (`height`), margem (`margin`) e preenchimento (`padding`) definidos.</p>
+        <div class="box">Bloco 1</div>
+        <div class="box">Bloco 2</div>
+        <div class="explanation">
+            <p>Observe como cada "Box" acima ocupa uma linha inteira, mesmo que não precise de toda a largura. É o comportamento padrão de tags como `<div>`, `<p>`, `<h1>`, etc.</p>
+        </div>
+    </div>
+
+    ---
+
+    <h2>2. <code>display: inline;</code></h2>
+    <div class="container display-inline">
+        <p>Elementos com **`display: inline;`** não iniciam em uma nova linha e ocupam apenas a largura necessária para o seu conteúdo. As propriedades `width` e `height` não têm efeito. Margens e preenchimentos verticais (`top`/`bottom`) também não afetam o layout de outros elementos, mas margens e preenchimentos horizontais (`left`/`right`) funcionam.</p>
+        <div class="box">Inline 1</div>
+        <div class="box">Inline 2</div>
+        <div class="box">Inline 3</div>
+        <div class="explanation">
+            <p>Os "Boxes" acima se comportam como texto. Eles ficam um ao lado do outro, e suas larguras e alturas são ignoradas. É o comportamento padrão de tags como `<span>`, `<a>`, `<strong>`, etc.</p>
+        </div>
+    </div>
+
+    ---
+
+    <h2>3. <code>display: inline-block;</code></h2>
+    <div class="container display-inline-block">
+        <p>Elementos com **`display: inline-block;`** combinam características de `inline` e `block`. Eles ficam na mesma linha que outros elementos (como `inline`), mas você pode definir `width`, `height`, `margin` e `padding` (como `block`).</p>
+        <div class="box">Inline-Block 1</div>
+        <div class="box">Inline-Block 2</div>
+        <div class="box">Inline-Block 3</div>
+        <div class="explanation">
+            <p>Os "Boxes" aqui estão um ao lado do outro, mas podemos controlar suas dimensões e margens/preenchimentos em todas as direções. É ótimo para criar menus de navegação ou galerias de imagens.</p>
+        </div>
+    </div>
+
+    ---
+
+    <h2>4. <code>display: flex;</code> (Introdução)</h2>
+    <p>A propriedade **`display: flex;`** transforma o elemento em um **contêiner flexível**. Seus filhos diretos se tornam **itens flexíveis**, que podem ser facilmente alinhados e distribuídos dentro do contêiner. É um poderoso módulo de layout unidimensional (linha ou coluna).</p>
+
+    <h3>4.1. <code>flex-direction: row;</code> (Padrão)</h3>
+    <div class="container display-flex-base flex-row-default">
+        <div class="box">Item 1</div>
+        <div class="box">Item 2</div>
+        <div class="box">Item 3</div>
+        <div class="explanation">
+            <p>Os itens são organizados da esquerda para a direita (em LTR). É o comportamento padrão do Flexbox.</p>
+        </div>
+    </div>
+
+    <h3>4.2. <code>flex-direction: row-reverse;</code></h3>
+    <div class="container display-flex-base flex-row-reverse">
+        <div class="box">Item 1</div>
+        <div class="box">Item 2</div>
+        <div class="box">Item 3</div>
+        <div class="explanation">
+            <p>Os itens são organizados da direita para a esquerda (em LTR).</p>
+        </div>
+    </div>
+
+    <h3>4.3. <code>flex-direction: column;</code></h3>
+    <div class="container display-flex-base flex-column">
+        <div class="box">Item 1</div>
+        <div class="box">Item 2</div>
+        <div class="box">Item 3</div>
+        <div class="box">Item 4</div>
+        <div class="box">Item 5</div>
+        <div class="explanation">
+            <p>Os itens são organizados de cima para baixo. Observe a barra de rolagem se houver muitos itens.</p>
+        </div>
+    </div>
+
+    <h3>4.4. <code>flex-wrap: wrap;</code></h3>
+    <div class="container display-flex-base flex-wrap">
+        <div class="box">Item 1</div>
+        <div class="box">Item 2</div>
+        <div class="box">Item 3</div>
+        <div class="box">Item 4</div>
+        <div class="box">Item 5</div>
+        <div class="box">Item 6</div>
+        <div class="box">Item 7</div>
+        <div class="box">Item 8</div>
+        <div class="explanation">
+            <p>Quando a largura não é suficiente, os itens quebram para a próxima linha.</p>
+        </div>
+    </div>
+
+    <h3>4.5. <code>flex-wrap: nowrap;</code> (Padrão)</h3>
+    <div class="container display-flex-base flex-nowrap">
+        <div class="box">Item 1</div>
+        <div class="box">Item 2</div>
+        <div class="box">Item 3</div>
+        <div class="box">Item 4</div>
+        <div class="box">Item 5</div>
+        <div class="box">Item 6</div>
+        <div class="box">Item 7</div>
+        <div class="box">Item 8</div>
+        <div class="explanation">
+            <p>Os itens permanecem na mesma linha, mesmo que estourem o contêiner, podendo gerar uma barra de rolagem horizontal.</p>
+        </div>
+    </div>
+
+
+    ---
+
+    <h2>5. <code>display: grid;</code></h2>
+    <div class="container display-grid">
+        <p>A propriedade **`display: grid;`** transforma o elemento em um **contêiner de grade**. Ela permite criar layouts complexos e responsivos baseados em linhas e colunas, em duas dimensões. É ideal para o layout geral de uma página.</p>
+        <div class="box">Grid Item A</div>
+        <div class="box">Grid Item B</div>
+        <div class="box">Grid Item C</div>
+        <div class="box">Grid Item D</div>
+        <div class="box">Grid Item E</div>
+        <div class="box">Grid Item F</div>
+        <div class="explanation">
+            <p>Este contêiner usa CSS Grid. Os "Boxes" são organizados em uma grade de 3 colunas e 2 linhas. A grade é um sistema mais poderoso para layouts complexos em duas dimensões. As linhas tracejadas representam os limites do contêiner de grade.</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>O Botão Secreto!</h2>
+    <p>O CSS também permite **esconder** elementos usando **`display: none;`**. Quando um elemento tem `display: none;`, ele é completamente removido do fluxo do documento e não ocupa espaço. O JavaScript pode ser usado para alternar essa propriedade.</p>
+    <p onclick="revealButton()" style="cursor: pointer; background-color: #e6e6e6; padding: 10px; border-radius: 5px;">Clique aqui para revelar o botão escondido!</p>
+
+    <button id="hiddenButton">Eu estava escondido com display: none;!</button>
+
+    <script>
+        function revealButton() {
+            const button = document.getElementById('hiddenButton');
+            button.classList.add('show');
+        }
+    </script>
+
+</body>
+</html>

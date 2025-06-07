@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila Flexbox: Dominando o Layout Flexível</title>
+    <style>
+        /* Estilos Gerais da Apostila */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container-apostila {
+            max-width: 960px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #3498db;
+            border-bottom: none;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        pre {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #e0e0e0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .exemplo {
+            background-color: #e8f6ff;
+            border: 1px solid #aed6f1;
+            padding: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .flex-container {
+            display: flex;
+            border: 2px dashed #e74c3c;
+            padding: 10px;
+            margin-bottom: 15px;
+            min-height: 100px; /* Para visualizar melhor o alinhamento */
+            background-color: #fcf3cf;
+            gap: 5px; /* Espaçamento entre os itens */
+        }
+
+        .flex-item {
+            background-color: #2ecc71;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            border-radius: 3px;
+            font-weight: bold;
+            flex-grow: 0;
+            flex-shrink: 1;
+            flex-basis: auto;
+            width: auto; /* Pode ser sobrescrito em exemplos específicos */
+            height: auto; /* Pode ser sobrescrito em exemplos específicos */
+            min-width: 50px; /* Para que os itens não fiquem minúsculos */
+            min-height: 30px; /* Para que os itens não fiquem minúsculos */
+            line-height: 1.2; /* Ajuste para o texto dentro do item */
+            box-sizing: border-box;
+        }
+
+        .flex-item.small {
+            flex-basis: 50px;
+        }
+
+        .flex-item.large {
+            flex-basis: 150px;
+        }
+
+        /* Estilos para navegação */
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            overflow-y: auto;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 10px 20px;
+            color: #ecf0f1;
+            text-decoration: none;
+            border-bottom: 1px solid #34495e;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #34495e;
+        }
+
+        .main-content {
+            margin-left: 270px;
+            padding-left: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                padding-top: 0;
+                margin-bottom: 20px;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .container-apostila {
+                margin: 0 auto;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+
+        /* Estilos específicos para exemplos de display */
+        .display-block-example {
+            border: 2px dashed #3498db;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #e0f7fa;
+        }
+        .display-inline-example {
+            border: 2px dashed #9c27b0;
+            padding: 5px;
+            margin-right: 10px; /* Para ver o espaçamento entre inline-blocks */
+            display: inline-block; /* Para comparação */
+            background-color: #f3e5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#introducao">Introdução ao Flexbox</a></li>
+            <li><a href="#display-prop">1. Propriedade `display`</a></li>
+            <li><a href="#flex-direction">2. `flex-direction`</a></li>
+            <li><a href="#flex-wrap">3. `flex-wrap`</a></li>
+            <li><a href="#flex-flow">4. `flex-flow`</a></li>
+            <li><a href="#justify-content">5. `justify-content`</a></li>
+            <li><a href="#align-items">6. `align-items`</a></li>
+            <li><a href="#align-content">7. `align-content`</a></li>
+            <li><a href="#itens">8. Propriedades dos Itens Flex</a></li>
+            <li><a href="#order">8.1. `order`</a></li>
+            <li><a href="#flex-grow">8.2. `flex-grow`</a></li>
+            <li><a href="#flex-shrink">8.3. `flex-shrink`</a></li>
+            <li><a href="#flex-basis">8.4. `flex-basis`</a></li>
+            <li><a href="#flex-shorthand">8.5. `flex` (shorthand)</a></li>
+            <li><a href="#align-self">8.6. `align-self`</a></li>
+            <li><a href="#exemplos-praticos">9. Exemplos Práticos</a></li>
+            <li><a href="#conclusao">10. Conclusão</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="container-apostila">
+            <h1>Apostila Flexbox: Dominando o Layout Flexível</h1>
+            <p>Seja bem-vindo à sua apostila completa sobre <strong>Flexbox</strong>! Este guia foi cuidadosamente elaborado para te ajudar a entender e dominar o modelo de layout CSS que revolucionou a forma como construímos interfaces responsivas e organizadas na web.</p>
+            <p>O Flexbox, ou <em>Flexible Box Module</em>, é uma especificação CSS3 que oferece uma maneira mais eficiente de dispor, alinhar e distribuir espaço entre itens em um contêiner, mesmo quando seu tamanho é desconhecido ou dinâmico. Ele é ideal para layouts de componentes de aplicações, pequenas telas e quando você precisa de controle preciso sobre a organização de elementos em uma única dimensão (linha ou coluna).</p>
+
+            ---
+
+            <h2 id="introducao">Introdução ao Flexbox</h2>
+            <p>Antes do Flexbox, centralizar elementos ou criar colunas com altura igual era um desafio. Com o Flexbox, esses problemas são resolvidos de forma elegante e intuitiva. Ele funciona com base em dois conceitos principais:</p>
+            <ul>
+                <li><strong>Contêiner Flex (Flex Container):</strong> O elemento pai que se torna um contêiner flex ao ter a propriedade <code>display: flex;</code> ou <code>display: inline-flex;</code> aplicada. É ele quem define o contexto flex para seus filhos diretos.</li>
+                <li><strong>Itens Flex (Flex Items):</strong> Os elementos filhos diretos do contêiner flex. São eles que serão dispostos, alinhados e terão seu espaço distribuído conforme as propriedades definidas no contêiner ou neles próprios.</li>
+            </ul>
+            <p>Pense no Flexbox como um conjunto de ferramentas para organizar itens em uma linha ou coluna de forma flexível. Você define como esses itens devem se comportar dentro de um espaço limitado ou ilimitado.</p>
+
+            ---
+
+            <h2 id="display-prop">1. Propriedade `display`</h2>
+            <p>A propriedade **`display`** é o ponto de partida para qualquer layout Flexbox. Ela é a chave que transforma um elemento HTML comum em um **Contêiner Flex**, permitindo que ele gerencie a disposição de seus filhos diretos (os itens flex) de uma maneira flexível e responsiva.</p>
+            <p>Para ativar o Flexbox em um elemento, você pode usar um dos dois valores para a propriedade `display`:</p>
+
+            <h3>1.1. `display: flex;`</h3>
+            <p>Quando você aplica `display: flex;` a um elemento, ele se comporta como um **elemento de bloco** em relação aos seus irmãos no fluxo normal do documento. Isso significa que ele ocupará 100% da largura disponível do seu pai (a menos que uma largura explícita seja definida) e iniciará em uma nova linha.</p>
+            <p>Internamente, porém, ele se torna um contêiner flex, e seus filhos diretos se tornam itens flex, sendo dispostos lado a lado por padrão (<code>flex-direction: row;</code>).</p>
+            <pre><code>.meu-container-bloco {
+    display: flex;
+    /* Agora, seus filhos diretos serão itens flexíveis */
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: `display: flex;`</h4>
+                <p>O contêiner abaixo (com borda tracejada vermelha) se comporta como um bloco, ocupando a largura total disponível. Seus itens são organizados em linha.</p>
+                <div class="flex-container" style="background-color: #d1f2eb;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                </div>
+                <p class="display-block-example">Este é um parágrafo que vem **depois** do contêiner flex. Observe que o contêiner flex se comporta como um elemento de bloco e ocupa uma linha inteira, fazendo com que este parágrafo comece em uma nova linha.</p>
+            </div>
+
+            <h3>1.2. `display: inline-flex;`</h3>
+            <p>Ao usar `display: inline-flex;`, o elemento se comporta como um **elemento em linha** em relação aos seus irmãos no fluxo normal do documento. Isso significa que ele tentará ocupar apenas o espaço necessário para seu conteúdo e permitirá que outros elementos em linha (ou `inline-block`) fiquem ao seu lado na mesma linha.</p>
+            <p>Assim como `display: flex;`, ele internamente transforma seus filhos diretos em itens flex, dispostos em linha por padrão.</p>
+            <pre><code>.meu-container-inline {
+    display: inline-flex;
+    /* Seus filhos diretos também serão itens flexíveis */
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: `display: inline-flex;`</h4>
+                <p>Os contêineres abaixo (com borda tracejada vermelha) se comportam como elementos em linha, permitindo que outros elementos fiquem ao seu lado. Seus itens internos são organizados em linha.</p>
+                <span class="flex-container" style="display: inline-flex; background-color: #d8eeff;">
+                    <div class="flex-item small">A</div>
+                    <div class="flex-item small">B</div>
+                </span>
+                <span class="flex-container" style="display: inline-flex; background-color: #fce6e6;">
+                    <div class="flex-item small">C</div>
+                    <div class="flex-item small">D</div>
+                </span>
+                <span class="display-inline-example">Comparação: Inline-Block</span>
+                <p>Observe que os dois contêineres flexíveis e o item "Comparação: Inline-Block" ficam na mesma linha, assim como elementos de texto ou `inline-block` fariam.</p>
+            </div>
+
+            <h3>1.3. Por que isso é importante?</h3>
+            <p>A escolha entre `display: flex;` e `display: inline-flex;` depende do contexto do seu layout:</p>
+            <ul>
+                <li>Use **`display: flex;`** quando você quer que o contêiner flex ocupe sua própria "linha" no layout principal e controle a disposição de seus filhos internamente. É ideal para seções grandes, barras de navegação principais ou componentes de layout de bloco.</li>
+                <li>Use **`display: inline-flex;`** quando você precisa que o contêiner flex se comporte como parte do fluxo de texto ou de outros elementos em linha, mas ainda assim deseja controlar a disposição de seus filhos com Flexbox. É útil para botões com ícones, grupos de tags, ou pequenos componentes dentro de uma linha de texto.</li>
+            </ul>
+            <p>Entender essa distinção fundamental é o primeiro passo para dominar o Flexbox, pois ele define como o seu contêiner flex interage com o restante do documento.</p>
+
+            ---
+
+            <h2 id="flex-direction">2. `flex-direction`</h2>
+            <p>A propriedade **`flex-direction`** define o **eixo principal** ao longo do qual os itens flex são dispostos dentro do contêiner flex. Em outras palavras, ela determina se os itens serão organizados em uma linha (horizontalmente) ou em uma coluna (verticalmente).</p>
+            <p>Os valores possíveis são:</p>
+            <ul>
+                <li><code>row</code> (padrão): Os itens são dispostos em uma linha, na direção do texto (da esquerda para a direita em idiomas LTR como o português).</li>
+                <li><code>row-reverse</code>: Os itens são dispostos em uma linha, mas na direção oposta ao texto (da direita para a esquerda em LTR).</li>
+                <li><code>column</code>: Os itens são dispostos em uma coluna, de cima para baixo.</li>
+                <li><code>column-reverse</code>: Os itens são dispostos em uma coluna, de baixo para cima.</li>
+            </ul>
+            <pre><code>.container {
+    display: flex;
+    flex-direction: row; /* Valores comuns: row | row-reverse | column | column-reverse */
+}</code></pre>
+
+            <div class="exemplo">
+                <h4>Exemplo: `flex-direction: row;` (Padrão)</h4>
+                <p>Itens dispostos da esquerda para a direita.</p>
+                <div class="flex-container" style="flex-direction: row; background-color: #f0f8ff;">
+                    <div class="flex-item">1</div>
+                    <div class="flex-item">2</div>
+                    <div class="flex-item">3</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `flex-direction: row-reverse;`</h4>
+                <p>Itens dispostos da direita para a esquerda.</p>
+                <div class="flex-container" style="flex-direction: row-reverse; background-color: #fff0f5;">
+                    <div class="flex-item">1</div>
+                    <div class="flex-item">2</div>
+                    <div class="flex-item">3</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `flex-direction: column;`</h4>
+                <p>Itens dispostos de cima para baixo.</p>
+                <div class="flex-container" style="flex-direction: column; height: 200px; background-color: #e6ffee;">
+                    <div class="flex-item">A</div>
+                    <div class="flex-item">B</div>
+                    <div class="flex-item">C</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `flex-direction: column-reverse;`</h4>
+                <p>Itens dispostos de baixo para cima.</p>
+                <div class="flex-container" style="flex-direction: column-reverse; height: 200px; background-color: #fffae6;">
+                    <div class="flex-item">A</div>
+                    <div class="flex-item">B</div>
+                    <div class="flex-item">C</div>
+                </div>
+            </div>
+            <p>Compreender `flex-direction` é crucial, pois ela define o **eixo principal** do seu layout flexível, impactando diretamente o comportamento de outras propriedades de alinhamento como `justify-content` e `align-items`.</p>
+
+            ---
+
+            <h2 id="flex-wrap">3. `flex-wrap`</h2>
+            <p>A propriedade **`flex-wrap`** controla como os itens flex se comportam quando não há espaço suficiente para todos eles em uma única linha (ou coluna, dependendo do `flex-direction`). Ela define se os itens devem quebrar para a próxima linha/coluna ou se devem permanecer em uma única, possivelmente transbordando o contêiner.</p>
+            <p>Os valores possíveis são:</p>
+            <ul>
+                <li><code>nowrap</code> (padrão): Os itens permanecem em uma única linha. Se o espaço for insuficiente, os itens encolherão (se `flex-shrink` permitir) ou transbordarão o contêiner.</li>
+                <li><code>wrap</code>: Os itens quebram para a próxima linha (ou coluna) quando não há espaço suficiente, começando do início da nova linha/coluna.</li>
+                <li><code>wrap-reverse</code>: Os itens quebram para a linha (ou coluna) anterior, ou seja, na direção oposta ao `wrap` normal.</li>
+            </ul>
+            <pre><code>.container {
+    display: flex;
+    flex-wrap: wrap; /* Valores comuns: nowrap | wrap | wrap-reverse */
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: `flex-wrap: nowrap;` (Padrão)</h4>
+                <p>Itens ficam em uma linha, podendo encolher ou transbordar. Redimensione a janela para ver o efeito.</p>
+                <div class="flex-container" style="flex-wrap: nowrap; width: 400px; background-color: #d8eeff;">
+                    <div class="flex-item large">Item Grande 1</div>
+                    <div class="flex-item large">Item Grande 2</div>
+                    <div class="flex-item large">Item Grande 3</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `flex-wrap: wrap;`</h4>
+                <p>Itens quebram para a próxima linha quando o espaço acaba.</p>
+                <div class="flex-container" style="flex-wrap: wrap; width: 400px; background-color: #e6ffee;">
+                    <div class="flex-item large">Item Grande 1</div>
+                    <div class="flex-item large">Item Grande 2</div>
+                    <div class="flex-item large">Item Grande 3</div>
+                    <div class="flex-item">Item 4</div>
+                    <div class="flex-item">Item 5</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `flex-wrap: wrap-reverse;`</h4>
+                <p>Itens quebram para a linha anterior.</p>
+                <div class="flex-container" style="flex-wrap: wrap-reverse; width: 400px; height: 180px; background-color: #fffae6;">
+                    <div class="flex-item large">Item Grande 1</div>
+                    <div class="flex-item large">Item Grande 2</div>
+                    <div class="flex-item large">Item Grande 3</div>
+                    <div class="flex-item">Item 4</div>
+                    <div class="flex-item">Item 5</div>
+                </div>
+            </div>
+            <p>Usar `flex-wrap` é essencial para criar layouts responsivos que se adaptam bem a diferentes tamanhos de tela, garantindo que os itens não transbordem e se mantenham visíveis.</p>
+
+            ---
+
+            <h2 id="flex-flow">4. `flex-flow`</h2>
+            <p>A propriedade **`flex-flow`** é uma propriedade de atalho (shorthand) que combina as propriedades `flex-direction` e `flex-wrap` em uma única declaração. Ela permite definir tanto a direção dos itens quanto o comportamento de quebra de linha de forma concisa.</p>
+            <p>A sintaxe é simplesmente:</p>
+            <pre><code>.container {
+    flex-flow: &lt;flex-direction&gt; &lt;flex-wrap&gt;;
+}</code></pre>
+            <p>Por exemplo, `flex-flow: row wrap;` é o mesmo que:</p>
+            <pre><code>.container {
+    flex-direction: row;
+    flex-wrap: wrap;
+}</code></pre>
+            <p>Se um dos valores for omitido, o valor padrão da propriedade correspondente será utilizado (`row` para `flex-direction` e `nowrap` para `flex-wrap`).</p>
+            <div class="exemplo">
+                <h4>Exemplo: `flex-flow: column wrap;`</h4>
+                <p>Itens organizados em colunas e quebram quando o espaço vertical é limitado.</p>
+                <div class="flex-container" style="flex-flow: column wrap; height: 200px; background-color: #f0f8ff;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                    <div class="flex-item">Item 4</div>
+                    <div class="flex-item">Item 5</div>
+                    <div class="flex-item">Item 6</div>
+                </div>
+            </div>
+            <p>Usar `flex-flow` pode tornar seu CSS mais limpo e conciso, especialmente quando você precisa definir ambos `flex-direction` e `flex-wrap` juntos.</p>
+
+            ---
+
+            <h2 id="justify-content">5. `justify-content`</h2>
+            <p>A propriedade **`justify-content`** alinha os itens flex **ao longo do eixo principal** do contêiner. A direção do eixo principal é definida por `flex-direction`.</p>
+            <p>Esta propriedade é fundamental para distribuir o espaço extra entre os itens ou ao redor deles.</p>
+            <p>Os valores possíveis são:</p>
+            <ul>
+                <li><code>flex-start</code> (padrão): Os itens são agrupados no início do eixo principal.</li>
+                <li><code>flex-end</code>: Os itens são agrupados no final do eixo principal.</li>
+                <li><code>center</code>: Os itens são agrupados no centro do eixo principal.</li>
+                <li><code>space-between</code>: O primeiro item fica no início, o último no final, e o espaço restante é distribuído igualmente **entre** os itens.</li>
+                <li><code>space-around</code>: Os itens recebem espaço igualmente em ambos os lados. Isso resulta em um espaço menor nas extremidades do contêiner e um espaço maior entre os itens.</li>
+                <li><code>space-evenly</code>: O espaço entre os itens e entre os itens e as bordas do contêiner é igual.</li>
+            </ul>
+            <pre><code>.container {
+    display: flex;
+    justify-content: center; /* Valores comuns: flex-start | flex-end | center | space-between | space-around | space-evenly */
+}</code></pre>
+
+            <div class="exemplo">
+                <h4>Exemplo: `justify-content: flex-start;` (Padrão para `row`)</h4>
+                <p>Itens alinhados ao início do contêiner.</p>
+                <div class="flex-container" style="justify-content: flex-start; background-color: #d1f2eb;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `justify-content: center;`</h4>
+                <p>Itens centralizados no contêiner.</p>
+                <div class="flex-container" style="justify-content: center; background-color: #fff0f5;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `justify-content: space-between;`</h4>
+                <p>Espaço distribuído entre os itens, bordas sem espaço.</p>
+                <div class="flex-container" style="justify-content: space-between; background-color: #e6ffee;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `justify-content: space-around;`</h4>
+                <p>Espaço ao redor dos itens, com as extremidades tendo metade do espaço entre os itens.</p>
+                <div class="flex-container" style="justify-content: space-around; background-color: #fffae6;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `justify-content: space-evenly;`</h4>
+                <p>Espaço igual entre os itens e as bordas.</p>
+                <div class="flex-container" style="justify-content: space-evenly; background-color: #d8eeff;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                </div>
+            </div>
+            <p>Lembre-se que o comportamento de `justify-content` muda se `flex-direction` for `column` ou `column-reverse`, pois o eixo principal se torna vertical.</p>
+
+            ---
+
+            <h2 id="align-items">6. `align-items`</h2>
+            <p>A propriedade **`align-items`** alinha os itens flex **ao longo do eixo transversal** (perpendicular ao eixo principal) do contêiner flex. Ela controla como os itens são alinhados em sua linha flexível.</p>
+            <p>Os valores possíveis são:</p>
+            <ul>
+                <li><code>stretch</code> (padrão): Os itens esticam para preencher o contêiner ao longo do eixo transversal, respeitando <code>min-height</code>/<code>max-height</code> (ou `min-width`/`max-width` se `flex-direction` for `column`).</li>
+                <li><code>flex-start</code>: Os itens são agrupados no início do eixo transversal.</li>
+                <li><code>flex-end</code>: Os itens são agrupados no final do eixo transversal.</li>
+                <li><code>center</code>: Os itens são agrupados no centro do eixo transversal.</li>
+                <li><code>baseline</code>: Os itens são alinhados pela linha de base de seu conteúdo (o texto ou outros elementos inline internos).</li>
+            </ul>
+            <pre><code>.container {
+    display: flex;
+    align-items: stretch; /* Valores comuns: stretch | flex-start | flex-end | center | baseline */
+    height: 150px; /* Importante para visualizar o alinhamento vertical */
+}</code></pre>
+
+            <div class="exemplo">
+                <h4>Exemplo: `align-items: stretch;` (Padrão)</h4>
+                <p>Itens esticam para preencher a altura do contêiner (se não tiverem altura explícita).</p>
+                <div class="flex-container" style="align-items: stretch; height: 120px; background-color: #f0f8ff;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `align-items: flex-start;`</h4>
+                <p>Itens alinhados no topo do contêiner.</p>
+                <div class="flex-container" style="align-items: flex-start; height: 120px; background-color: #fff0f5;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `align-items: center;`</h4>
+                <p>Itens centralizados verticalmente no contêiner.</p>
+                <div class="flex-container" style="align-items: center; height: 120px; background-color: #e6ffee;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item small">Item 2<br>menor</div>
+                    <div class="flex-item">Item 3</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `align-items: baseline;`</h4>
+                <p>Itens alinhados pela linha de base do conteúdo.</p>
+                <div class="flex-container" style="align-items: baseline; height: 120px; background-color: #fffae6;">
+                    <div class="flex-item" style="font-size: 1.5em;">Grande</div>
+                    <div class="flex-item" style="font-size: 1em;">Normal</div>
+                    <div class="flex-item" style="font-size: 0.8em;">Pequeno</div>
+                </div>
+            </div>
+            <p>A propriedade `align-items` é crucial para controlar o alinhamento vertical (ou horizontal, se `flex-direction` for `column`) dos itens dentro de cada linha flexível.</p>
+
+            ---
+
+            <h2 id="align-content">7. `align-content`</h2>
+            <p>A propriedade **`align-content`** alinha as **linhas flexíveis** ao longo do eixo transversal do contêiner flex. Ela é usada quando o contêiner tem várias linhas de itens (ou seja, quando `flex-wrap` está definido como `wrap` ou `wrap-reverse`) e há espaço extra no eixo transversal.</p>
+            <p>**Importante:** Esta propriedade não tem efeito quando há apenas uma única linha de itens flex.</p>
+            <p>Os valores possíveis são:</p>
+            <ul>
+                <li><code>stretch</code> (padrão): As linhas esticam para preencher o espaço disponível.</li>
+                <li><code>flex-start</code>: As linhas são agrupadas no início do eixo transversal.</li>
+                <li><code>flex-end</code>: As linhas são agrupadas no final do eixo transversal.</li>
+                <li><code>center</code>: As linhas são agrupadas no centro do eixo transversal.</li>
+                <li><code>space-between</code>: A primeira linha fica no início, a última no final, e o espaço restante é distribuído igualmente **entre** as linhas.</li>
+                <li><code>space-around</code>: O espaço é distribuído igualmente ao redor de cada linha, com as extremidades do contêiner recebendo metade do espaço.</li>
+                <li><code>space-evenly</code>: O espaço entre as linhas e entre as linhas e as bordas do contêiner é igual.</li>
+            </ul>
+            <pre><code>.container {
+    display: flex;
+    flex-wrap: wrap; /* ESSENCIAL para que align-content tenha efeito */
+    height: 300px; /* Altura do contêiner para ter espaço extra para as linhas */
+    align-content: stretch; /* Valores comuns: stretch | flex-start | flex-end | center | space-between | space-around | space-evenly */
+}</code></pre>
+
+            <div class="exemplo">
+                <h4>Exemplo: `align-content: stretch;` (Padrão)</h4>
+                <p>As linhas esticam para preencher o espaço vertical.</p>
+                <div class="flex-container" style="flex-wrap: wrap; height: 200px; background-color: #d1f2eb;">
+                    <div class="flex-item large">Item 1</div>
+                    <div class="flex-item large">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                    <div class="flex-item">Item 4</div>
+                    <div class="flex-item">Item 5</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `align-content: flex-start;`</h4>
+                <p>As linhas são agrupadas no topo do contêiner.</p>
+                <div class="flex-container" style="flex-wrap: wrap; height: 200px; align-content: flex-start; background-color: #fff0f5;">
+                    <div class="flex-item large">Item 1</div>
+                    <div class="flex-item large">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                    <div class="flex-item">Item 4</div>
+                    <div class="flex-item">Item 5</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `align-content: center;`</h4>
+                <p>As linhas são centralizadas verticalmente no contêiner.</p>
+                <div class="flex-container" style="flex-wrap: wrap; height: 200px; align-content: center; background-color: #e6ffee;">
+                    <div class="flex-item large">Item 1</div>
+                    <div class="flex-item large">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                    <div class="flex-item">Item 4</div>
+                    <div class="flex-item">Item 5</div>
+                </div>
+            </div>
+
+            <div class="exemplo">
+                <h4>Exemplo: `align-content: space-between;`</h4>
+                <p>Espaço distribuído igualmente entre as linhas.</p>
+                <div class="flex-container" style="flex-wrap: wrap; height: 200px; align-content: space-between; background-color: #fffae6;">
+                    <div class="flex-item large">Item 1</div>
+                    <div class="flex-item large">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                    <div class="flex-item">Item 4</div>
+                    <div class="flex-item">Item 5</div>
+                </div>
+            </div>
+            <p>Usar `align-content` permite um controle refinado sobre como as diferentes linhas de conteúdo são espaçadas e alinhadas em layouts complexos com `flex-wrap`.</p>
+
+            ---
+
+            <h2 id="itens">8. Propriedades dos Itens Flex</h2>
+            <p>Enquanto as propriedades anteriores são aplicadas ao **Contêiner Flex**, as propriedades que veremos agora são aplicadas diretamente aos **Itens Flex** (os filhos diretos do contêiner). Elas permitem um controle individual sobre o comportamento de cada item.</p>
+
+            <h3 id="order">8.1. `order`</h3>
+            <p>A propriedade **`order`** define a ordem em que um item flex é exibido dentro do contêiner. Por padrão, todos os itens têm um `order` de `0` e são exibidos na ordem em que aparecem no HTML.</p>
+            <p>Itens com valores de `order` menores são exibidos antes dos itens com valores maiores. Se dois itens tiverem o mesmo valor de `order`, sua ordem original no HTML é mantida.</p>
+            <pre><code>.flex-item {
+    order: 0; /* Valor padrão. Pode ser qualquer número inteiro (positivo ou negativo) */
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: `order`</h4>
+                <p>A ordem visual dos itens pode ser diferente da ordem no código HTML.</p>
+                <div class="flex-container">
+                    <div class="flex-item" style="order: 2;">Item 1 (Ordem 2)</div>
+                    <div class="flex-item" style="order: 1;">Item 2 (Ordem 1)</div>
+                    <div class="flex-item" style="order: 3;">Item 3 (Ordem 3)</div>
+                    <div class="flex-item" style="order: -1;">Item 4 (Ordem -1)</div>
+                </div>
+            </div>
+            <p>O `order` é útil para reordenar elementos para diferentes tamanhos de tela (responsividade) sem ter que mudar a estrutura HTML.</p>
+
+            <h3 id="flex-grow">8.2. `flex-grow`</h3>
+            <p>A propriedade **`flex-grow`** define a capacidade de um item flex de **crescer** e ocupar qualquer espaço extra disponível no contêiner flex, ao longo do eixo principal.</p>
+            <ul>
+                <li>Valor padrão: `0` (o item não cresce, mesmo que haja espaço sobrando).</li>
+                <li>Valores maiores que `0`: O item pode crescer. O valor numérico representa uma proporção. Se dois itens tiverem `flex-grow: 1;`, eles crescerão igualmente. Se um tiver `flex-grow: 2;` e outro `flex-grow: 1;`, o primeiro ocupará o dobro do espaço extra que o segundo.</li>
+            </ul>
+            <pre><code>.flex-item {
+    flex-grow: 0; /* Valor padrão. Pode ser qualquer número não negativo */
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: `flex-grow`</h4>
+                <p>Itens crescem para preencher o espaço restante, de acordo com sua proporção `flex-grow`.</p>
+                <div class="flex-container">
+                    <div class="flex-item" style="flex-grow: 1;">Item 1 (grow: 1)</div>
+                    <div class="flex-item">Item 2 (grow: 0)</div>
+                    <div class="flex-item" style="flex-grow: 2;">Item 3 (grow: 2)</div>
+                </div>
+            </div>
+            <p>Usar `flex-grow` é excelente para criar layouts fluidos onde os elementos se expandem para ocupar o espaço disponível, garantindo que o layout preencha a tela.</p>
+
+            <h3 id="flex-shrink">8.3. `flex-shrink`</h3>
+            <p>A propriedade **`flex-shrink`** define a capacidade de um item flex de **encolher** se não houver espaço suficiente no contêiner para todos os itens em seu tamanho base. Isso evita que os itens transbordem do contêiner.</p>
+            <ul>
+                <li>Valor padrão: `1` (o item pode encolher).</li>
+                <li>Valor `0`: O item não encolhe, mantendo seu tamanho original (ou `flex-basis`). Isso pode causar um transbordamento se o contêiner for muito pequeno.</li>
+                <li>Valores maiores que `1`: O item encolherá mais rapidamente que outros itens com `flex-shrink: 1;`.</li>
+            </ul>
+            <pre><code>.flex-item {
+    flex-shrink: 1; /* Valor padrão. Pode ser qualquer número não negativo */
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: `flex-shrink`</h4>
+                <p>Redimensione a janela do navegador para ver o efeito. O Item 2 não irá encolher.</p>
+                <div class="flex-container" style="width: 450px; flex-wrap: nowrap; background-color: #ffe0b2;">
+                    <div class="flex-item large">Item Grande 1</div>
+                    <div class="flex-item large" style="flex-shrink: 0;">Item Grande 2 (Shrink: 0)</div>
+                    <div class="flex-item large">Item Grande 3</div>
+                </div>
+                <p>O Item 2 mantém sua largura (`flex-basis`) enquanto os outros itens encolhem para acomodá-lo.</p>
+            </div>
+            <p>Controlar `flex-shrink` é importante para layouts responsivos, especialmente para evitar que elementos críticos se tornem muito pequenos ou transbordem em telas menores.</p>
+
+            <h3 id="flex-basis">8.4. `flex-basis`</h3>
+            <p>A propriedade **`flex-basis`** define o **tamanho inicial padrão** de um item flex antes que qualquer espaço restante seja distribuído (ou removido) pelo `flex-grow` ou `flex-shrink`.</p>
+            <p>Ela pode ser definida com:</p>
+            <ul>
+                <li>Um valor de comprimento (ex: `100px`, `50%`, `5rem`).</li>
+                <li>A palavra-chave `auto` (padrão): Usa o tamanho do conteúdo do item, ou o valor da propriedade `width` (ou `height` se `flex-direction` for `column`).</li>
+                <li>A palavra-chave `content`: Baseia o tamanho no tamanho intrínseco do conteúdo (similar ao `auto`, mas mais específico).</li>
+            </ul>
+            <pre><code>.flex-item {
+    flex-basis: auto; /* Valor padrão. Pode ser uma unidade de comprimento ou 'content' */
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: `flex-basis`</h4>
+                <p>Itens começam com o tamanho definido por `flex-basis`, antes de crescerem ou encolherem.</p>
+                <div class="flex-container">
+                    <div class="flex-item" style="flex-basis: 80px;">Base 80px</div>
+                    <div class="flex-item" style="flex-basis: 120px;">Base 120px</div>
+                    <div class="flex-item">Auto</div>
+                </div>
+            </div>
+            <p>`flex-basis` é essencial para definir o "ponto de partida" dos itens em termos de tamanho, permitindo que Flexbox distribua o espaço a partir daí.</p>
+
+            <h3 id="flex-shorthand">8.5. `flex` (shorthand)</h3>
+            <p>A propriedade **`flex`** é uma propriedade de atalho (shorthand) para `flex-grow`, `flex-shrink` e `flex-basis`, nesta ordem.</p>
+            <p>Ela é a maneira mais comum e recomendada de definir as propriedades de flexibilidade de um item, pois controla como ele cresce, encolhe e qual é seu tamanho inicial.</p>
+            <p>A sintaxe completa é: `flex: <flex-grow> <flex-shrink> <flex-basis>;`</p>
+            <ul>
+                <li>`flex: 1;` é um valor comum e significa `flex: 1 1 0%;` (o item cresce, encolhe e tem base 0).</li>
+                <li>`flex: auto;` significa `flex: 1 1 auto;` (o item cresce, encolhe e tem base `auto`).</li>
+                <li>`flex: none;` significa `flex: 0 0 auto;` (o item não cresce, não encolhe e tem base `auto`).</li>
+                <li>`flex: 0 0 200px;` significa que o item não cresce, não encolhe, e terá uma largura fixa de 200px.</li>
+            </ul>
+            <pre><code>.flex-item {
+    flex: 1; /* Um valor comum, faz o item ser flexível */
+    /* Equivalente a: flex-grow: 1; flex-shrink: 1; flex-basis: 0%; */
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: `flex` Shorthand</h4>
+                <p>Itens com diferentes comportamentos de flexibilidade usando a shorthand.</p>
+                <div class="flex-container">
+                    <div class="flex-item" style="flex: 1;">Grow 1</div>
+                    <div class="flex-item" style="flex: 2;">Grow 2</div>
+                    <div class="flex-item" style="flex: 0 0 100px;">Fixo 100px</div>
+                    <div class="flex-item" style="flex: none;">None</div>
+                </div>
+            </div>
+            <p>Dominar a propriedade `flex` é um dos passos mais importantes para controlar o comportamento de dimensionamento dos seus itens flexíveis.</p>
+
+            <h3 id="align-self">8.6. `align-self`</h3>
+            <p>A propriedade **`align-self`** permite que um item flex individual sobrescreva o valor de `align-items` definido no contêiner flex para aquele item específico. Ela alinha um único item ao longo do eixo transversal.</p>
+            <p>Aceita os mesmos valores de `align-items`:</p>
+            <ul>
+                <li><code>auto</code> (padrão): O item herda o valor de `align-items` do seu pai ou `stretch` se não houver um.</li>
+                <li><code>flex-start</code>: Alinha o item no início do eixo transversal.</li>
+                <li><code>flex-end</code>: Alinha o item no final do eixo transversal.</li>
+                <li><code>center</code>: Alinha o item no centro do eixo transversal.</li>
+                <li><code>baseline</code>: Alinha o item pela linha de base do seu conteúdo.</li>
+                <li><code>stretch</code>: O item estica para preencher o contêiner ao longo do eixo transversal.</li>
+            </ul>
+            <pre><code>.flex-item.especial {
+    align-self: center; /* Sobrescreve o align-items do contêiner para este item */
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: `align-self`</h4>
+                <p>O contêiner tem `align-items: flex-start;` mas alguns itens sobrescrevem esse comportamento.</p>
+                <div class="flex-container" style="align-items: flex-start; height: 150px; background-color: #d8eeff;">
+                    <div class="flex-item">Item Padrão</div>
+                    <div class="flex-item" style="align-self: center;">Item Centralizado</div>
+                    <div class="flex-item">Item Padrão</div>
+                    <div class="flex-item" style="align-self: flex-end;">Item Final</div>
+                    <div class="flex-item" style="align-self: stretch;">Item Stretch</div>
+                </div>
+            </div>
+            <p>Usar `align-self` é útil para exceções no alinhamento, permitindo que você ajuste itens individuais sem alterar a regra geral do contêiner.</p>
+
+            ---
+
+            <h2 id="exemplos-praticos">9. Exemplos Práticos</h2>
+            <p>Agora que você conhece as propriedades individuais do Flexbox, vamos ver como elas podem ser combinadas para resolver problemas de layout comuns de forma elegante.</p>
+
+            <h3>9.1. Centralizando Elementos</h3>
+            <p>Uma das tarefas mais comuns e simplificadas com Flexbox é a centralização de elementos, tanto horizontalmente quanto verticalmente. Isso é feito combinando `justify-content` e `align-items`.</p>
+            <pre><code>.centralizar-tudo {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente no eixo principal */
+    align-items: center; /* Centraliza verticalmente no eixo transversal */
+    height: 200px; /* Precisa de uma altura para visualizar o alinhamento vertical */
+    border: 2px dashed #3498db;
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: Centralização Total</h4>
+                <div class="centralizar-tudo">
+                    <div class="flex-item" style="width: 150px; height: 80px; line-height: 80px;">Item Centralizado!</div>
+                </div>
+            </div>
+
+            <h3>9.2. Cabeçalho Responsivo</h3>
+            <p>Criar um cabeçalho com logo, navegação e talvez um botão, e fazer com que eles se ajustem em diferentes tamanhos de tela.</p>
+            <pre><code>.header {
+    display: flex;
+    justify-content: space-between; /* Logo em um lado, navegação no outro */
+    align-items: center; /* Centraliza itens verticalmente no cabeçalho */
+    background-color: #2c3e50;
+    padding: 10px 20px;
+    color: #fff;
+    flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas menores */
+}
+
+.header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    flex-shrink: 0; /* Impede que a logo encolha demais */
+}
+
+.header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Torna a lista de navegação um contêiner flex */
+    gap: 15px; /* Espaçamento entre os links */
+    flex-wrap: wrap; /* Links da navegação podem quebrar em linhas */
+    justify-content: center; /* Centraliza links quando quebram */
+    flex-grow: 1; /* Permite que a navegação ocupe espaço extra */
+}
+
+.header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+.header nav ul li a:hover {
+    background-color: #34495e;
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: Cabeçalho Responsivo Básico</h4>
+                <div class="header">
+                    <div class="logo">Minha Logo</div>
+                    <nav>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Sobre</a></li>
+                            <li><a href="#">Serviços</a></li>
+                            <li><a href="#">Contato</a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <p>Experimente redimensionar a janela do navegador para ver como o cabeçalho se adapta.</p>
+            </div>
+
+            <h3>9.3. Grid de Cards Responsivo</h3>
+            <p>Usando Flexbox para criar um layout de cards que se adapta a diferentes números de colunas automaticamente.</p>
+            <pre><code>.card-grid {
+    display: flex;
+    flex-wrap: wrap; /* Essencial para que os cards quebrem em novas linhas */
+    gap: 20px; /* Espaçamento entre os cards */
+    justify-content: center; /* Centraliza os cards quando há poucos na última linha */
+}
+
+.card {
+    flex: 1 1 calc(33% - 20px); /* flex-grow, flex-shrink, flex-basis */
+    /* flex-basis: calcula 33% da largura do pai menos o gap para 3 colunas */
+    min-width: 280px; /* Impede que os cards fiquem muito pequenos */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+    .card {
+        flex-basis: calc(50% - 20px); /* Duas colunas em telas médias */
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        flex-basis: 100%; /* Uma coluna em telas muito pequenas */
+    }
+}</code></pre>
+            <div class="exemplo">
+                <h4>Exemplo: Grid de Cards Responsivo</h4>
+                <div class="card-grid">
+                    <div class="card flex-item" style="background-color: #aed6f1;">
+                        <h3>Card 1</h3>
+                        <p>Conteúdo do card 1. Flexbox é incrível para grids!</p>
+                    </div>
+                    <div class="card flex-item" style="background-color: #aed6f1;">
+                        <h3>Card 2</h3>
+                        <p>Este é o card 2 com mais algum texto de exemplo.</p>
+                    </div>
+                    <div class="card flex-item" style="background-color: #aed6f1;">
+                        <h3>Card 3</h3>
+                        <p>Card 3 com informações relevantes aqui.</p>
+                    </div>
+                    <div class="card flex-item" style="background-color: #aed6f1;">
+                        <h3>Card 4</h3>
+                        <p>Mais um card para preencher o espaço disponível.</p>
+                    </div>
+                    <div class="card flex-item" style="background-color: #aed6f1;">
+                        <h3>Card 5</h3>
+                        <p>O último card para demonstrar o `justify-content: center;`.</p>
+                    </div>
+                </div>
+                <p>Redimensione a janela para ver os cards mudarem de 3 colunas para 2 e depois para 1, usando apenas Flexbox.</p>
+            </div>
+
+
+            ---
+
+            <h2 id="conclusao">10. Conclusão</h2>
+            <p>Parabéns! Você chegou ao final desta apostila sobre <strong>Flexbox</strong>. Esperamos que este guia tenha fornecido uma compreensão clara e prática sobre como utilizar essa poderosa ferramenta de layout.</p>
+            <p>O Flexbox é incrivelmente versátil e essencial para o desenvolvimento web moderno. A chave para dominá-lo é a prática. Experimente, crie seus próprios exemplos e veja como as propriedades interagem. Quanto mais você usa, mais intuitivo ele se torna.</p>
+            <p>Continue explorando e criando layouts incríveis!</p>
+            <p>Lembre-se: o Flexbox é excelente para layouts unidimensionais (linha ou coluna). Para layouts bidimensionais (linhas E colunas), explore o <strong>CSS Grid</strong>!</p>
+            <p>A prática leva à perfeição. Comece a integrar o Flexbox em seus projetos e veja a diferença que ele faz!</p>
+        </div>
+    </div>
+</body>
+</html>

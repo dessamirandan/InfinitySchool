@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial de CSS Posicionamento</title>
+    <link rel="stylesheet" href="position_style.css">
+</head>
+<body>
+
+    <h1>Aprenda Posicionamento CSS</h1>
+    <p>O posicionamento CSS é uma propriedade fundamental para controlar a localização de elementos na sua página web. Existem cinco valores principais para a propriedade `position`:</p>
+
+    ---
+
+    <h2>1. <code>position: static;</code> (Padrão)</h2>
+    <div class="container static-example">
+        <p>Este é o valor padrão para todos os elementos HTML. Elementos com <code>position: static;</code> são renderizados na ordem normal do documento. As propriedades <code>top</code>, <code>bottom</code>, <code>left</code> e <code>right</code> não têm efeito.</p>
+        <div class="box">Static Box 1</div>
+        <div class="box">Static Box 2</div>
+        <div class="explanation">
+            <p>Os boxes acima estão com <code>position: static;</code>. Observe que eles se comportam como blocos de texto normais, um após o outro, sem serem afetados por deslocamentos.</p>
+        </div>
+    </div>
+
+    ---
+
+    <h2>2. <code>position: relative;</code></h2>
+    <div class="container relative-example">
+        <p>Um elemento com <code>position: relative;</code> é posicionado em relação à sua posição normal. Você pode usar as propriedades <code>top</code>, <code>bottom</code>, <code>left</code> e <code>right</code> para deslocá-lo de sua posição original. O espaço que ele ocuparia no layout normal permanece reservado.</p>
+        <div class="box">Normal Box</div>
+        <div class="box box-relative">Relative Box</div>
+        <div class="box">Another Box</div>
+        <div class="explanation">
+            <p>O "Relative Box" está deslocado 20px para baixo (<code>top: 20px;</code>) e 20px para a direita (<code>left: 20px;</code>) de sua posição original. O espaço "vazio" que ele deixou para trás ainda está presente.</p>
+        </div>
+    </div>
+
+    ---
+
+    <h2>3. <code>position: absolute;</code></h2>
+    <div class="container absolute-example">
+        <p>Um elemento com <code>position: absolute;</code> é posicionado em relação ao seu **ancestral posicionado mais próximo** (um elemento cujo <code>position</code> não é <code>static</code>). Se não houver um ancestral posicionado, ele é posicionado em relação ao documento (`<html>`). Elementos absolutos são removidos do fluxo normal do documento, o que significa que não ocupam espaço.</p>
+        <div class="box">Base Box</div>
+        <div class="box box-absolute">Absolute Box</div>
+        <div class="explanation">
+            <p>O "Absolute Box" está posicionado 50px de cima (<code>top: 50px;</code>) e 20px da direita (<code>right: 20px;</code>) **em relação ao seu container pai** (que tem <code>position: relative;</code>). Repare que ele não afeta o layout dos outros boxes.</p>
+        </div>
+    </div>
+
+    ---
+
+    <h2>4. <code>position: fixed;</code></h2>
+    <div class="container fixed-example">
+        <p>Um elemento com <code>position: fixed;</code> é posicionado em relação à **janela de visualização (viewport)**. Ele permanece na mesma posição mesmo quando a página é rolada. Isso é útil para cabeçalhos ou rodapés fixos.</p>
+        <p>Role a página para baixo para ver o efeito do "Fixed Box".</p>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="box box-fixed">Fixed Box</div>
+        <div class="explanation">
+            <p>O "Fixed Box" está fixo no canto inferior direito da sua tela. Ele não se move quando você rola a página.</p>
+        </div>
+    </div>
+
+    ---
+
+    <h2>5. <code>position: sticky;</code></h2>
+    <div class="container sticky-example-container">
+        <p>Um elemento com <code>position: sticky;</code> é posicionado com base na posição de rolagem do usuário. Ele se comporta como `relative` até que uma determinada posição de rolagem seja atingida, momento em que ele se torna `fixed` em relação à janela de visualização.</p>
+        <div class="box box-sticky">Sticky Header</div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Role a página para ver o "Sticky Header" se fixar no topo.</p>
+        <div class="explanation">
+            <p>O "Sticky Header" está posicionado com <code>top: 0;</code>. À medida que você rola a página, ele se comporta como um elemento normal até atingir o topo da viewport, onde ele "gruda".</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>O Botão Secreto!</h2>
+    <p>Clique neste parágrafo para revelar o botão escondido. Isso demonstra como podemos usar JavaScript para manipular a propriedade <code>display</code> do CSS e tornar elementos visíveis ou invisíveis.</p>
+    <p onclick="revealButton()" style="cursor: pointer; background-color: #e6e6e6; padding: 10px; border-radius: 5px;">Clique aqui para revelar o botão!</p>
+
+    <button id="hiddenButton">Eu estava escondido!</button>
+
+    <script>
+        function revealButton() {
+            const button = document.getElementById('hiddenButton');
+            button.classList.add('show');
+        }
+    </script>
+
+</body>
+</html>

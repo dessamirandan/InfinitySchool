@@ -1,0 +1,133 @@
+/* display.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.container {
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+}
+
+.box {
+    width: 150px;
+    height: 50px;
+    background-color: lightblue;
+    border: 1px solid steelblue;
+    border-radius: 15px;
+    margin: 5px;
+    text-align: center;
+    line-height: 50px; /* Centraliza o texto verticalmente */
+    font-weight: bold;
+    color: #333;
+    display: inline-block; /* Base para o .box */
+}
+
+
+/* Exemplos de Display */
+
+.display-block .box {
+    display: block;
+    width: 90%;
+    background-color: lightcoral;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+.display-inline .box {
+    display: inline;
+    background-color: lightgreen;
+    width: auto;
+    height: auto;
+    padding: 5px 10px;
+    margin: 0 5px;
+    line-height: normal;
+}
+
+.display-inline-block .box {
+    background-color: lightgoldenrodyellow;
+}
+
+/* Base para Flexbox */
+.display-flex-base {
+    display: flex;
+    border: 2px dashed #999;
+    padding: 10px;
+    margin-top: 15px; /* Adicionado para separar um pouco dos parágrafos */
+}
+
+/* Variações do Flexbox */
+.flex-row-default {
+    /* display: flex; já definido em .display-flex-base */
+    flex-direction: row; /* Valor padrão, mas explícito para demonstração */
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flex-row-reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-start; /* Ou outro alinhamento para ver o efeito */
+    align-items: flex-start;
+}
+
+.flex-column {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px; /* Altura para ver o efeito da coluna */
+    overflow: auto; /* Para quando tiver muitos itens em coluna */
+}
+
+.flex-wrap {
+    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap; /* Valor padrão, mas explícito */
+    justify-content: space-between;
+    overflow-x: auto; /* Adiciona scroll horizontal se os itens não couberem */
+}
+
+
+.display-flex .box, /* Estilos para os boxes dentro dos exemplos flex */
+.flex-row-default .box,
+.flex-row-reverse .box,
+.flex-column .box,
+.flex-wrap .box,
+.flex-nowrap .box {
+    width: 80px; /* Tamanho ajustado para os exemplos flex */
+    height: 60px;
+    background-color: #a2d9ce;
+    margin: 5px; /* Margem padrão para boxes flex */
+    flex-shrink: 0; /* Impede que os itens encolham em nowrap por padrão */
+}
+
+/* Estilos específicos para os boxes flex no modo column */
+.flex-column .box {
+    width: 90%; /* Ocupa mais largura em coluna */
+    margin: 5px auto;
+}
+
+
+.display-grid {
+    display: grid;
+    border: 2px dashed #999;
+    padding: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.display-grid .box {
+    width: auto;
+    height: 80px;}
+    
