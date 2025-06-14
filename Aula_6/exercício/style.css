@@ -1,0 +1,153 @@
+body{
+    background-color: aliceblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    color: black;
+    margin: 0px;
+}
+main{
+    margin: 0 30PX;
+}
+
+h2{
+    text-align: center;
+    margin: 1em 0;
+    font-size: 1.8em;
+}
+h3{
+    font-size: 1em;
+    text-align: center;
+}
+
+/*Página inicial*/
+nav{
+    text-align: center;
+    display: grid;
+    justify-items: end;
+    padding: 20px;
+    border-bottom: 2px solid white;
+}
+
+.menu a{
+    padding: 10px;
+
+}
+
+.perfil {
+    display: flex;
+    flex-direction: row;
+}
+
+.fotoPerfil img {
+    width: 13em;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.fotoPerfil{
+    display: flex;
+    align-items: center;
+    padding: 2em;
+}
+
+.sobre{
+    text-align: justify;
+    padding: 2em;
+}
+
+
+.habilidades {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+/*Estilização do formulário*/
+
+.forms{
+    background-color: #90b1db;
+    padding: 2rem;
+    width: 300px;
+    display: block;
+    margin: auto;
+
+}
+.campos{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+input{
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+textarea{
+    min-height: 100px;
+}
+
+
+/* Estilização dos botões*/
+
+button{
+    border-radius: 9px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.botao{
+    text-align: center;
+    margin: 10px 0;
+}
+
+button a{
+    text-decoration: none;
+    color: black;
+}
+.botao button:hover {
+    background-color: #AED3E3; 
+    color: #f0f0f0;           
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-1px);
+}
+
+/*Página de portifólio*/
+
+.galeria{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.galeria img{
+    width: 200px;
+    height: 200px;
+    border-radius: 24px;
+    border: 1px solid none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+
+}
+.projeto{
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+/*Início Gemini*/
+.galeria div:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+}
+
+/* Efeito na IMAGEM ao passar o mouse sobre a div ou o link */
+.galeria div:hover img {
+    transform: scale(1.08); /* Aumenta a imagem em 8% para criar o zoom */
+    filter: brightness(0.9); /* Escurece um pouco a imagem */
+}
+/*Fim Gemini*/
+
