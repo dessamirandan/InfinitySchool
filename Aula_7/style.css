@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+/*Estilo do cabeçalho*/
+
+header {
+    background-color: #ffd1e2;
+}
+
+.cabecalho {
+    padding: 10px;
+}
+
+/*Estilo da Introdução*/
+
+.img-logo {
+max-width: 50px;
+}
+
+/*Estílo Títulos principais*/
+
+
+/*Estilo da Introdução*/
+
