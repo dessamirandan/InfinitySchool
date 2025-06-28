@@ -30,7 +30,7 @@ nav{
 
 .menu a{
     padding: 10px;
-
+    text-decoration: none;
 }
 
 .perfil {
@@ -87,8 +87,12 @@ input{
 }
 
 textarea{
-    min-height: 100px;
+    max-width: 100%;
+    border-radius: 5px;
+    padding: 10px;
 }
+
+
 
 
 /* Estilização dos botões*/
