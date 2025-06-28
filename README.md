@@ -39,9 +39,9 @@ Ao final do curso serei capaz de:
 | Módulo                | Status         |
 | --------------------- | -------------- |
 | Fundamentos da Web    | ✅ Concluído    |
-| HTML/CSS Avançado     | 🚧 Em andamento |
-| Lógica de Programação | ⏳ Próximo      |
-| JavaScript            | ⏳ Próximo      |
+| HTML/CSS Avançado     | ✅ Concluído    |
+| Lógica de Programação | 🚧 Em andamento |
+| JavaScript            | 🚧 Em andamento |
 | Phyton                | ⏳ Em breve     |
 | Banco de Dados        | ⏳ Em breve     |
 | SQL                   | ⏳ Em breve     |
