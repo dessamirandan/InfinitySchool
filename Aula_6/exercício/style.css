@@ -5,9 +5,6 @@ body{
     color: black;
     margin: 0px;
 }
-main{
-    margin: 0 30PX;
-}
 
 h2{
     text-align: center;
@@ -26,6 +23,7 @@ nav{
     justify-items: end;
     padding: 20px;
     border-bottom: 2px solid white;
+    background-color: #90b1db;
 }
 
 .menu a{
@@ -83,7 +81,7 @@ nav{
 input{
     border-radius: 5px;
     padding: 10px;
-    width: 100%;
+    width: 90%;
 }
 
 textarea{
@@ -106,6 +104,7 @@ button{
     font-size: 16px;
 }
 
+
 .botao{
     text-align: center;
     margin: 10px 0;
@@ -120,6 +119,14 @@ button a{
     color: #f0f0f0;           
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
     transform: translateY(-1px);
+}
+
+.botao-contato{
+    padding: 10px 20px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 /*Página de portifólio*/
